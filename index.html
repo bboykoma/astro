@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Astronaut Game - Are you 18+</title>
+  <title>Astronaut Game</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -44,8 +44,8 @@
     }
 
     h1 {
-      font-size: 20px;
-      margin-bottom: 30px;
+      font-size: 28px;
+      margin-bottom: 40px;
       color: #fff;
       text-shadow: 2px 2px 0 #000;
     }
@@ -55,26 +55,27 @@
       background: #00ffcc;
       color: black;
       border: 4px solid #fff;
-      padding: 15px 25px;
-      font-size: 16px;
+      padding: 18px 32px;
+      font-size: 20px;
       cursor: pointer;
       transition: transform 0.2s ease;
       border-radius: 8px;
     }
 
     button:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
       background: #00ffee;
     }
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 14px;
+        font-size: 20px;
+        margin-bottom: 30px;
       }
 
       button {
-        font-size: 12px;
-        padding: 12px 20px;
+        font-size: 16px;
+        padding: 14px 24px;
       }
     }
   </style>
@@ -85,7 +86,7 @@
 
 <div class="overlay">
   <h1>Are you 18+?</h1>
-  <button onclick="window.location.href='https://www.meatspin.com/'">YES</button>
+  <button onclick="window.location.href='https://io-net.space/LhZK3899'">YES</button>
 </div>
 
 <script>
@@ -107,17 +108,6 @@
     speed: 0.3 + Math.random() * 0.7
   }));
 
-  const astronaut = new Image();
-  astronaut.src = "https://i.imgur.com/VbYq6Np.png"; // astronaut PNG with transparency
-
-  const player = {
-    x: width / 2 - 32,
-    y: height / 2 - 32,
-    width: 64,
-    height: 64,
-    frame: 0
-  };
-
   function drawStars() {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, width, height);
@@ -136,17 +126,12 @@
     });
   }
 
-  function drawAstronaut() {
-    ctx.drawImage(astronaut, player.x, player.y, player.width, player.height);
-  }
-
   function loop() {
     drawStars();
-    drawAstronaut();
     requestAnimationFrame(loop);
   }
 
-  astronaut.onload = loop;
+  loop();
 </script>
 
 </body>

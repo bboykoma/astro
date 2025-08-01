@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Astronaut Game - Are you 18+</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: black;
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    button {
+      font-family: 'Press Start 2P', cursive;
+      background: #00ffcc;
+      color: black;
+      border: 4px solid #fff;
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      border-radius: 8px;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #00ffee;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 12px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="spaceGame"></canvas>
+
+<div class="overlay">
+  <h1>Are you 18+?</h1>
+  <button onclick="window.location.href='https://www.meatspin.com/'">YES</button>
+</div>
+
+<script>
+  const canvas = document.getElementById("spaceGame");
+  const ctx = canvas.getContext("2d");
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const stars = Array(100).fill().map(() => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    radius: Math.random() * 1.5,
+    speed: 0.3 + Math.random() * 0.7
+  }));
+
+  const astronaut = new Image();
+  astronaut.src = "https://i.imgur.com/VbYq6Np.png"; // astronaut PNG with transparency
+
+  const player = {
+    x: width / 2 - 32,
+    y: height / 2 - 32,
+    width: 64,
+    height: 64,
+    frame: 0
+  };
+
+  function drawStars() {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.fillStyle = "#fff";
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fill();
+
+      star.y += star.speed;
+      if (star.y > height) {
+        star.y = 0;
+        star.x = Math.random() * width;
+      }
+    });
+  }
+
+  function drawAstronaut() {
+    ctx.drawImage(astronaut, player.x, player.y, player.width, player.height);
+  }
+
+  function loop() {
+    drawStars();
+    drawAstronaut();
+    requestAnimationFrame(loop);
+  }
+
+  astronaut.onload = loop;
+</script>
+
+</body>
+</html>
